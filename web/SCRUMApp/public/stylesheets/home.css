@@ -1,0 +1,31 @@
+
+#home.jumbotron{
+    padding-top: 180px;
+    padding-bottom: 180px;
+    z-index:0;
+}
+#button-registration-home{
+    width:100%;
+    padding: 0.75em 1.5em;
+    background-color : #6cc644;
+}
+
+nav.navbar{
+    z-index:2;
+
+}
+
+#home-signin{
+    background-color : #6cc644;
+    color : white;
+}
+
+ul.list-group.search{
+    position: absolute;
+    width:100%
+}
+
+.result{
+    width: 259px;
+    list-style-type:none;
+}

@@ -1,0 +1,40 @@
+{
+  "name": "SCRUMApp",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "angular": "^1.5.8",
+    "angular-animate": "^1.5.8",
+    "angular-aria": "^1.5.8",
+    "angular-bootstrap-npm": "^0.14.3",
+    "angular-material": "^1.1.1",
+    "angular-resource": "^1.5.8",
+    "angular-route": "^1.5.8",
+    "asserts": "^4.0.2",
+    "bcrypt": "^0.8.7",
+    "body-parser": "~1.15.1",
+    "bootstrap": "^3.3.7",
+    "chai": "^3.5.0",
+    "chromedriver": "^2.24.1",
+    "cookie-parser": "~1.4.3",
+    "css-flex": "^1.0.1",
+    "debug": "~2.2.0",
+    "express": "~4.13.4",
+    "express-session": "^1.14.2",
+    "geckodriver": "^1.2.0",
+    "jade": "^1.11.0",
+    "jquery": "^3.1.1",
+    "jsdom": "^9.8.3",
+    "jslint": "^0.10.3",
+    "mocha": "^3.1.2",
+    "mongoose": "^4.6.5",
+    "morgan": "~1.7.0",
+    "nan": "^2.4.0",
+    "python": "0.0.4",
+    "selenium-webdriver": "^3.0.0-beta-3",
+    "serve-favicon": "~2.3.0"
+  }
+}
