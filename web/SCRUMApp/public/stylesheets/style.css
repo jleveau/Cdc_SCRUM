@@ -1,0 +1,55 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+#helper.container {
+  width: 100%;
+  align-content: left;
+}
+
+.navbar-nav > li{
+  padding-left:15px;
+}
+
+#project-description-container{
+  word-wrap: break-word; /* Forces to wrap the word and cut it*/
+  width: 100%;
+  margin: 0 auto;
+  background-color: #f7f7f9;
+}
+
+#project-memberlist{
+  background-color: #f7f7f9;
+}
+
+#product-owner-header{
+  padding-top: 10px;
+}
+
+.user-media{
+  padding-top: 10px;
+  padding-bottom: 10px;
+  width: 100%;
+
+}
+
+.user-desc-image{
+  max-width: none;
+}
+
+#product-owner-select{
+  width:auto;
+}
+
+.user_picture{
+  cursor: pointer
+}
+
+.pointer{
+  cursor: pointer;
+}
