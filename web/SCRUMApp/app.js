@@ -42,11 +42,21 @@ app.use(express.static(path.join(__dirname, 'server')));
 // Import Models and controllers
 var models = require('./models/scrumdb')(app, mongoose);
 var ProjectsCtrl = require('./models/projects');
+var UserStoriesCtrl = require('./models/userstories');
+var TasksCtrl = require('./models/tasks');
+var SprintCtrl = require('./models/sprints');
+
+
 
 // api routes
 app.use('/', routes);
 app.use('/users', users);
 require('./server/routes/projects')(app, ProjectsCtrl);
+require('./server/routes/userstories')(app, UserStoriesCtrl);
+require('./server/routes/tasks')(app, TasksCtrl);
+require('./server/routes/sprint')(app, SprintCtrl);
+
+
 
 // Ressources route
 
@@ -58,8 +68,12 @@ app.use('/js', express.static(__dirname + '/node_modules/bootstrap/dist/js')); /
 app.use('/js', express.static(__dirname + '/node_modules/jquery/dist')); // redirect JS jQuery
 app.use('/js', express.static(__dirname + '/node_modules/angular-material')); // redirect JS jQuery
 app.use('/js', express.static(__dirname + '/node_modules/angular-animate')); // redirect JS jQuery
+app.use('/js', express.static(__dirname + '/node_modules/ng-popover/dist')); // redirect CSS bootstrap
+
 app.use('/css', express.static(__dirname + '/node_modules/angular-material')); // redirect JS jQuery
 app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css')); // redirect CSS bootstrap
+app.use('/css', express.static(__dirname + '/node_modules/ng-popover/dist')); // redirect CSS bootstrap
+
 app.use('/fonts/', express.static(path.join(__dirname, '/node_modules/bootstrap/fonts')));
 app.use('/public', express.static(__dirname + '/public'));
 app.use('/partials',express.static(path.join(__dirname, '/public/views')));

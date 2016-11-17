@@ -53,3 +53,82 @@ a {
 .pointer{
   cursor: pointer;
 }
+
+#add-task-container{
+  margin-top: 1em;
+  background-color: #dddddd;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  width: 100%;
+}
+
+* {
+.border-radius(0) !important;
+}
+
+#field {
+  margin-bottom:20px;
+}
+
+#bind_task_dependencies_btn{
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+#bind_userstory_btn{
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.popover-cell{
+  position: relative;
+}
+
+div .popover-floating-animation-right{
+  animation: none;
+  -webkit-animation: none;
+}
+
+.angular-popover{
+  z-index: 2;
+  width: 300px;
+  position: absolute;
+  max-height: 300px;
+  overflow: scroll;
+}
+
+.truncate{
+  display:inline-block;
+  max-width:100px;
+  white-space: nowrap;
+  overflow:hidden !important;
+  text-overflow: ellipsis;
+}
+
+.tooltipTruncate {
+  position:absolute;
+  border: 1px solid CornflowerBlue;
+  max-width: 300px;
+  margin-left: 38px;
+  margin-top: -35px;
+  background-color: CornflowerBlue;
+  border-radius: 4px;
+  height: auto;
+  color: white;
+}
+
+.task_li{
+  list-style-type: none;
+  cursor: pointer;
+}
+.kanban_body {
+  height: auto;
+}
+
+.kanban-task-show{
+  padding-right: 10px;
+}
+
+md-dialog.md-transition-in{
+  max-height: 100%;
+}

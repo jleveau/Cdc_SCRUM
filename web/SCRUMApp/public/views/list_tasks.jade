@@ -1,0 +1,23 @@
+h2 Tasks
+table.table.table-striped
+    thead
+        tr
+            th Num
+            th Title
+            th Cost man/days
+            th Sprint
+            th(ng-if='isProjectMember()') Actions
+    tbody
+        tr(ng-repeat = "task in tasks")
+            td.popover-cell.filterable-cell {{ task.number_task }}
+            td.filterable-cell {{ task.title }}
+            td.filterable-cell {{ task.estimated_cost }}
+            td.filterable-cell Sprint# {{ task.sprint.number_sprint }}
+            td.filterable-cell(ng-if='isProjectMember()')
+                .btn-group
+                    button.btn.btn-default(type='button', aria-label='trash', ng-click='showDescription($event,task)')
+                        span.glyphicon.glyphicon-eye-open(aria-hidden='true')
+                    button.btn.btn-default(type='button', aria-label='pencil', ng-click='editTask(task)')
+                        span.glyphicon.glyphicon-pencil(aria-hidden='true')
+                    button.btn.btn-danger(type='button', aria-label='trash',ng-click='deleteTask(task)')
+                        span.glyphicon.glyphicon-trash(aria-hidden='true')

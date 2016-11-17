@@ -1,4 +1,6 @@
 extends layout
 block content
     include project_toolbar
-    'tasks'
+
+    .container-fluid(ng-controller='TasksListController')
+        include list_tasks
