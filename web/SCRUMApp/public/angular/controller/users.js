@@ -1,35 +1,40 @@
 //angular modules
 angular.module('User',[])
 
-    .controller('UserController', ['$scope','$routeParams','Projects','$http', function($scope,$routeParams,Projects,$http) {
+    .controller('UserController', ['$scope','$routeParams','Projects','$http','$location','AuthService',
+        function($scope,$routeParams,Projects,$http,$location,AuthService) {
         $scope.params = $routeParams;
-        //TODO replace with getAllUsers()
         $scope.users = [];
         $scope.users_search = [];
+
 
         $http.get('users/allusers').then(function(response){
             $scope.users = response.data;
             $scope.users_search = $scope.users;
-
         });
 
-        // TODO Replace with getCurrent_User($scope.params.id)
-        $scope.user = {
-            username: "username",
-            mail: "email",
-            password: "password",
-            image: null,
-            first_name: null,
-            last_name: null,
-             followed_projects: [{ name : 'toto' },{ name : 'toto' },{ name : 'toto' },{ name : 'toto' },{ name : 'toto' },{ name : 'toto' },{ name : 'toto' },{ name : 'toto' },{ name : 'toto' },{ name : 'toto' }],
-            date_created: new Date(),
-            date_updated: new Date()
-        };
+        if ($scope.params.user_id){
+            $http.get('users/info/' + $scope.params.user_id).then(function(response){
+                $scope.user = response.data;
+                $scope.user.projects = [];
+            }).then(function(){
+                $http.get('users/userprojects/' + $scope.user._id).then(function(response){
+                    $scope.user.projects= response.data;
+                });
+            });
+        }
 
-////////// SearchBar
-        //TO DO replace with request to get all public projects + logged user project
-        $scope.limit = 5; // max 10 project loaded
-        $scope.searchUser= '';
+        AuthService.getCurrentUser().then(function(){
+            $scope.current_user = AuthService.getUserStatus();
+        });
+
+
+        $scope.isCurrentUser = function(user){
+            if (user && $scope.current_user) {
+                return $scope.current_user._id == user._id;
+            }
+            return false;
+        };
 
         $scope.setUser = function (user_search_result) {
             angular.copy(user_search_result,$scope.searchUser);
@@ -37,14 +42,40 @@ angular.module('User',[])
 
         $scope.add_user_to_project = function(){
             var user_add = null;
-            console.log($scope.searchUser)
+            if ($scope.searchUser == null)
+                return;
             if ($scope.searchUser.hasOwnProperty("_id")){
                 user_add = angular.copy($scope.searchUser,user_add );
+
                 Projects.addMember(user_add,function(){
-                    Projects.updateProject();
+                    Projects.updateMembers();
                 });
             }
         };
-        ///////// End Searchbar
+            
+        ////////// Project SearchBar
+        Projects.getAll().then(function(response){
+                $scope.projects = response;
+                $scope.projects_search = $scope.projects;
+            }, function(response){
+                $scope.data = response.status;
+                $scope.projects_search = $scope.projects;
+            }
+        );
 
+        $scope.limit = 5; // max 10 project loaded
+        $scope.searchProject = '';
+
+        $scope.setProject = function (project) {
+            angular.copy(project,$scope.searchProject);
+        };
+
+        $scope.go = function ( path ) {
+            $location.path( path );
+        };
+
+        $scope.go_to_project = function ( ) {
+            $location.path( "/project/" + $scope.searchProject._id);
+        };
+        ///////// End Searchbar
     }]);

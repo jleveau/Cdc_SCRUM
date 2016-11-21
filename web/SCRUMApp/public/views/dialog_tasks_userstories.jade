@@ -1,0 +1,15 @@
+md-dialog(aria-label='List dialog', ng-controller='TasksAddController')
+    md-dialog-content
+        .container-fluid
+            h3 UserStories
+            form
+                .form-group(ng-repeat="userstory in userstories")
+                    .checkbox
+                        label
+                            input(type='checkbox', ng-model="bool", ng-click="sync(bool, userstory)", ng-checked="isChecked(userstory._id)" )
+                            | {{userstory.description}}
+
+    md-dialog-actions
+        md-button.md-primary(ng-click='closeDialog()')
+            | Ok
+
