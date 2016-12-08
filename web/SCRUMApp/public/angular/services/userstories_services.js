@@ -32,7 +32,13 @@ angular.module('UserStories')
                     return $http.get('/api/userstory/' + userstory_id + '/tasks').then(function (response) {
                         return response.data;
                     });
-                }
+                };
+
+                function getUserStoryByIdProject(project_id) {
+                    return $http.get('/api/project/backlog/' + project_id).then(function (response) {
+                        return response.data;
+                    });
+                };
                 
                 return {
                     get: function (id) {
@@ -56,6 +62,13 @@ angular.module('UserStories')
                             return response.data;
                         });
                     },
+                    
+                    updateValidation: function (user_story) {
+                        return $http.put('/api/userstory/'+user_story._id+'/commit_validation/'+user_story.commit_validation).
+                        then(function (response) {
+                            return response.data;
+                        });
+                    },
 
                     delete: function (us_id) {
                         return $http.delete('/api/userstory/' + us_id).then(function (response) {
@@ -67,7 +80,8 @@ angular.module('UserStories')
                     getUsByID : getUsByID,
                     setListUS: setListUS,
                     addUsToList:addUsToList,
-                    getUserstoryTasks : getUserstoryTasks
+                    getUserstoryTasks : getUserstoryTasks,
+                    getUserStoryByIdProject : getUserStoryByIdProject
                 };
 
             }]);

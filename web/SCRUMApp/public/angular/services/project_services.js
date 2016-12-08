@@ -4,6 +4,7 @@ angular.module('ProjectServices', [])
 // each function returns a promise object
     .factory('Projects', function($http) {
         var project = null;
+        var sprintsTab = [];
 
         var setProject = function (_project){
             project = _project;
@@ -49,7 +50,7 @@ angular.module('ProjectServices', [])
             return $http.get('/api/project/backlog/' + project_id).then(function(response){
                 return response.data;
             });
-        }
+        };
 
         return {
             get : function(id) {
@@ -86,7 +87,12 @@ angular.module('ProjectServices', [])
                     return response.data;
                 });
             },
-
+            
+            getGitHubProject:function(project_id){
+                return $http.get('/api/project/' + project_id + '/github/').then(function(response){
+                    return response.data;
+                });
+            },
 
             updateProject: updateProject,
             addTask: addTask,

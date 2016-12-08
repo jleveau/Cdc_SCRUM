@@ -38,8 +38,8 @@ var sprints = new mongoose.Schema({
     date_start: Date,
     date_end: Date,
     number_sprint: Number,
-    sprint_duration: Number, // On la dans le projet, faut il la remettre dans le sprint ??
     project: {type: ObjectId, ref: 'projects'},
+    date_validation: Date,
     date_created: {type: Date, default: Date.now},
     date_updated: {type: Date, default: Date.now}
 });
@@ -51,8 +51,8 @@ var userstories = new mongoose.Schema({
     state: {type: String, enum: ['Valid', 'Not Valid'], default: 'Not Valid'},
     cost: Number,
     testValidation: String,
-    //commit_validation: String,
-    //date_validation: Date,
+    commit_validation: String,
+    date_validation: Date,
     priority: Number,
     estimated_cost: Number,
     sprint: { type : ObjectId, ref: 'sprints' },
@@ -89,6 +89,14 @@ var tasks = new mongoose.Schema({
     date_updated: {type: Date, default: Date.now}
 });
 
+var notifications = new mongoose.Schema({
+    project: { type : ObjectId, ref: 'projects' },
+    body:  String,
+    author: {type: ObjectId, ref: 'users'},
+    date_created : {type: Date, default: Date.now},
+    date_updated: {type: Date, default: Date.now}
+});
+
 module.exports = mongoose.model('projects', projects);
 module.exports = mongoose.model('userstories', userstories);
 module.exports = mongoose.model('sprints', sprints);
@@ -96,6 +104,7 @@ module.exports = mongoose.model('tasks', tasks);
 module.exports = mongoose.model('user_project', user_project);
 module.exports = mongoose.model('userstories_projects', userstories_projects);
 module.exports = mongoose.model('userstories_tasks', userstories_tasks);
+module.exports = mongoose.model('notifications', notifications);
 
 
 

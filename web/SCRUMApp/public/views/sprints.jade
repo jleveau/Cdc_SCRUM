@@ -17,31 +17,53 @@ block content
                             th Done
                     tbody.kanban_body
                         tr
-                            td ALL
-                                span(ng-if='isProjectMember()', ng-click='showAddTaskForm($event,null)')
-                                    span.glyphicon.glyphicon-plus(aria-hidden='true')
                             td
-                                ul(ng-repeat='task in all_tasks')
-                                    li.task_li
-                                        label(ng-click='selectTask(task)') {{task.title}}
+                                label ALL
+                                    span.add_task_kanban(ng-if='isProjectMember() && !current_sprint.date_validation', 
+                                    ng-click='showAddTaskForm($event,null)')
+                                        span.glyphicon.glyphicon-plus(aria-hidden='true')
                             td
+                                ul.task_ul(ng-repeat='task in all_tasks track by task._id')
+                                    li.task_li(ng-if='task.state=="TODO"')
+                                        label(ng-class="{user_task : taskIsForCurrentUser(task)}",ng-click='selectTask(task)') {{task.title}}
                             td
+                                ul.task_ul(ng-repeat='task in all_tasks track by task._id')
+                                    li.task_li(ng-if='task.state=="DOING"')
+                                        label(ng-class="{user_task : taskIsForCurrentUser(task)}",ng-click='selectTask(task)') {{task.title}}
+                            td
+                                ul.task_ul(ng-repeat='task in all_tasks track by task._id')
+                                    li.task_li(ng-if='task.state=="DONE"')
+                                        label(ng-class="{user_task : taskIsForCurrentUser(task)}",ng-click='selectTask(task)') {{task.title}}
 
-                        tr(ng-repeat="user_story in listUserStories")
+                        tr(ng-repeat="user_story in listUserStories" )
                             td
-                                a.pointer(ng-click='showUserStoryDescription($event,user_story)') US# {{user_story.number_us}}
-                                span(ng-if='isProjectMember()',ng-click='showAddTaskForm($event,user_story)')
+                                label.pointer(ng-click='showUserStoryDescription($event,user_story)') US# {{user_story.number_us}}
+                                span.add_task_kanban(ng-if='isProjectMember() && !user_story.date_validation',
+                                ng-click='showAddTaskForm($event,user_story)')
                                     span.glyphicon.glyphicon-plus(aria-hidden='true')
+                                br
+                                label.pointer(ng-if='!user_story.date_validation && allTasksDone(user_story.tasks)', 
+                                ng-click='validerUsForm($event,user_story)') Valider
+                                button.btn.btn-success.btn-xs(type='button', aria-label='valide',
+                                ng-click='showUsValidationForm($event,user_story)', ng-if='user_story.date_validation')
+                                    span.glyphicon.glyphicon-check(aria-hidden='true')
+                                
                             td
-                                ul(ng-repeat='task in user_story.tasks')
-                                    li.task_li
-                                        label(ng-click='selectTask(task)') {{task.title}}
+                                ul.task_ul(ng-repeat='task in user_story.tasks track by task._id')
+                                    li.task_li(ng-if='task.state=="TODO"')
+                                        label(ng-class="{user_task : taskIsForCurrentUser(task)}",ng-click='selectTask(task)') {{task.title}}
                             td
+                                ul.task_ul(ng-repeat='task in user_story.tasks track by task._id')
+                                    li.task_li(ng-if='task.state=="DOING"')
+                                        label(ng-class="{user_task : taskIsForCurrentUser(task)}",ng-click='selectTask(task)') {{task.title}}
                             td
+                                ul.task_ul(ng-repeat='task in user_story.tasks track by task._id')
+                                    li.task_li(ng-if='task.state=="DONE"')
+                                        label(ng-class="{user_task : taskIsForCurrentUser(task)}",ng-click='selectTask(task)') {{task.title}}
         .col-md-3
             .container-fluid(ng-show='selected_task')
-                h3 {{ selected_task.title }}
-                td.filterable-cell(ng-if='isProjectMember()')
+                h3 Task# {{selected_task.number_task}} {{ selected_task.title }}
+                div(ng-if='isProjectMember()')
                     .btn-group
                         button.btn.btn-default(type='button', aria-label='pencil', ng-click='showEditForm($event,selected_task)')
                             span.glyphicon.glyphicon-pencil(aria-hidden='true')
@@ -63,5 +85,15 @@ block content
                 div
                     label Last Update :&nbsp
                     span {{selected_task.date_updated | date:'medium'}}
+                    
+                div(ng-if='isProjectMember()')
+                    .btn-group
+                        button.btn.btn-default(type='button', ng-show='taskIsForCurrentUser(selected_task)', aria-label='back',
+                        ng-click='backTask(selected_task)')
+                            span.glyphicon.glyphicon-arrow-left(aria-hidden='true')
+                        button.btn.btn-default(type='button', ng-show='taskIsForCurrentUser(selected_task)', aria-label='ahead',
+                        ng-click='advanceTask(selected_task)')
+                            span.glyphicon.glyphicon-arrow-right(aria-hidden='true')
+                            
             .container-fluid(ng-hide='selected_task')
                 p Click on a task to display details

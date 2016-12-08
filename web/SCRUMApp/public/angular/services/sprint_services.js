@@ -7,6 +7,10 @@ angular.module('Sprints')
 
                 var sprints_for_project;
                 var current_sprint;
+				
+				function getListCout(){
+					return [1,2,3,5,8,13,21,34,55,89];
+				}
 
                 function setCurrentSprint(sprint){
                     current_sprint = sprint;
@@ -36,13 +40,21 @@ angular.module('Sprints')
                     });
                 }
 
+                function getSprint(sprint_id){
+                    return $http.get('/api/sprint/' + sprint_id + '/info').then(function(response){
+                        return response.data;
+                    });
+                }
+
                 return ({
                     setCurrentSprint : setCurrentSprint,
                     getCurrentSprint : getCurrentSprint,
                     setSprintsForProject : setSprintsForProject,
                     getSprintsForProject : getSprintsForProject,
                     getProjectSprints : getProjectSprints,
-                    getSprintUserstories : getSprintUserstories
+                    getSprintUserstories : getSprintUserstories,
+                    getSprint : getSprint,
+					getListCout : getListCout
                 });
 
             }]);
